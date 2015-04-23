@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Closure Test</title>
+<script>
+var isCorrect = true;
+
+if(isCorrect) {
+	window.onload = function() {
+		for(var i = 1; i <= 3; i++) {
+			(function(otherVal) {
+				bindEvent(document.getElementById("btn" + otherVal), 'click', function() { alert(otherVal); });
+			})(i);
+		}
+	};
+}else{
+	window.onload = function() {
+		for(var i = 1; i <= 3; i++) {
+			bindEvent(document.getElementById("btn" + i), 'click', function() { alert(i); });
+		}
+	};
+}
+
+function bindEvent(element, event, func) {
+	if(element.addEventListener) {
+		element.addEventListener(event, func, false);
+	}else if(element.attachEvent){
+		element.attachEvent("on"+event, func);
+	}else{
+		element[event] = func;
+	}
+}
+</script>
+</head>
+<body>
+<button id="btn1">버튼1</button><BR/>
+<button id="btn2">버튼2</button><BR/>
+<button id="btn3">버튼3</button>
+</body>
+</html>   
